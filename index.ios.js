@@ -13,6 +13,8 @@ import {
 } from 'react-native-elements';
 import { Col, Row, Grid } from "react-native-easy-grid";
 import getMovies from './data/getMovies';
+import Carousel from "react-native-carousel-control";
+
 
 const Filmster = React.createClass({
 
@@ -38,7 +40,24 @@ const Filmster = React.createClass({
     return (
       <View style={styles.container}>
         <View style={styles.topContainer}>
-          <Text>Top Container</Text>
+          <Carousel>
+            {
+            this.state.movies.map((movie, index) => {
+
+              let poster = `https://image.tmdb.org/t/p/w154${movie.backdrop_path}`;
+
+              return (
+                <Card
+                  key={index} >
+                  <ListItem
+                    title={movie.original_title}
+                    avatar={{uri: poster}} />
+                  <Text>{movie.overview}</Text>
+                </Card>
+              );
+            })
+          }
+          </Carousel>
         </View>
         <View style={styles.bottomContainer}>
           <ScrollView>
