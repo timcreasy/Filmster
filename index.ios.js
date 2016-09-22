@@ -13,17 +13,29 @@ import {
 } from 'react-native-elements';
 import { Col, Row, Grid } from "react-native-easy-grid";
 import getMovies from './data/getMovies';
+import getNews from './data/getNews';
 import Carousel from "react-native-carousel-control";
 
 
 const Filmster = React.createClass({
 
   getInitialState() {
-    return ({ movies: [] });
+    return ({ movies: [], news: [] });
   },
 
   componentDidMount() {
+    this.loadNews();
     this.loadMovies();
+  },
+
+  loadNews() {
+    return getNews()
+      .then(articles => {
+        this.setState({ news: articles.value });
+      })
+      .catch(err => {
+        console.log("ERR", err);
+      });
   },
 
   loadMovies() {
@@ -42,17 +54,19 @@ const Filmster = React.createClass({
         <View style={styles.topContainer}>
           <Carousel>
             {
-            this.state.movies.map((movie, index) => {
+            this.state.news.map((article, index) => {
 
-              let poster = `https://image.tmdb.org/t/p/w154${movie.backdrop_path}`;
+              let articleImage = article.image.thumbnail.contentUrl;
 
               return (
-                <Card
+                <Card style={styles.carouselCard}
                   key={index} >
                   <ListItem
-                    title={movie.original_title}
-                    avatar={{uri: poster}} />
-                  <Text>{movie.overview}</Text>
+                    title={article.name}
+                    avatar={{uri: articleImage}} />
+                  <ScrollView>
+                    <Text>{article.description}</Text>
+                  </ScrollView>
                 </Card>
               );
             })
@@ -86,6 +100,7 @@ const Filmster = React.createClass({
 
 const styles = StyleSheet.create({
   container: {
+    paddingTop: 30,
     flex: 1,
   },
   topContainer: {
@@ -93,6 +108,9 @@ const styles = StyleSheet.create({
   },
   bottomContainer: {
     flex: 4
+  },
+  carouselCard: {
+    flex: 1
   }
 });
 
