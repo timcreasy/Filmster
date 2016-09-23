@@ -1,22 +1,34 @@
+const moment = require('moment');
+
 module.exports = () => {
 
-  // GETS USER
-  const QUERY = 'https://api.themoviedb.org/3/discover/movie?api_key=795a536c778127747db47817325f3197&language=en-US';
 
-    const requestObj = {
-      method: 'GET',
-      headers: {
-        'Accept': 'application/json',
-      }
-    };
+  let endDate = new Date();
+  let startDate = new Date();
+  startDate.setMonth(startDate.getMonth() - 2);
 
-    return fetch(QUERY, requestObj)
-    .then((response) => {
-      return response.json();
-    })
-    .then((movies) => {
-      return movies;
-    })
-    .catch(err => console.log(err));
+  startDate = moment(startDate).format('YYYY-MM-DD');
+  endDate = moment(endDate).format('YYYY-MM-DD')
+
+  const QUERY = `https://data.tmsapi.com/v1.1/movies/showings?startDate=${endDate}&zip=37221&api_key=phj5m6jhbdjqz4v9z7a9zehc`;
+
+  console.log("QUERY", QUERY);
+
+  const requestObj = {
+    method: 'GET',
+    headers: {
+      'Accept': 'application/json',
+    }
+  };
+
+  return fetch(QUERY, requestObj)
+  .then((response) => {
+    return response.json();
+  })
+  .then((movies) => {
+    console.log(movies);
+    return movies;
+  })
+  .catch(err => console.log(err));
 
 };
