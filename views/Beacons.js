@@ -2,18 +2,15 @@ import React from 'react';
 import {
   StyleSheet,
   View,
+  Text
 } from 'react-native';
-import MovieNews from './MovieNews';
-import MoviesNearMe from './MoviesNearMe';
 
-
-const Home = React.createClass({
+const Beacons = React.createClass({
 
   render() {
     return (
       <View style={styles.container}>
-        <MovieNews />
-        <MoviesNearMe />
+        <Text>Beacon Page</Text>
       </View>
     );
   }
@@ -26,4 +23,4 @@ const styles = StyleSheet.create({
   }
 });
 
-module.exports = Home;
+module.exports = Beacons;

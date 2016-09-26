@@ -10,7 +10,7 @@ module.exports = () => {
   startDate = moment(startDate).format('YYYY-MM-DD');
   endDate = moment(endDate).format('YYYY-MM-DD')
 
-  const QUERY = `https://data.tmsapi.com/v1.1/movies/showings?startDate=${endDate}&zip=37221&api_key=phj5m6jhbdjqz4v9z7a9zehc`;
+  const QUERY = `https://data.tmsapi.com/v1.1/movies/showings?startDate=${endDate}&zip=37210&api_key=phj5m6jhbdjqz4v9z7a9zehc`;
 
   console.log("QUERY", QUERY);
 
