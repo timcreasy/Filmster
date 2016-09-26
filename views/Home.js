@@ -21,7 +21,7 @@ const Home = React.createClass({
 
 const styles = StyleSheet.create({
   container: {
-    paddingTop: 30,
+    paddingTop: 35,
     flex: 1,
   }
 });

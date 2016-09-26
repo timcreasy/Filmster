@@ -16,6 +16,7 @@ import getPoster from '../data/getPoster';
 import Carousel from "react-native-carousel-control";
 import {Card, CardItem, Thumbnail } from 'native-base';
 import { Actions } from 'react-native-router-flux';
+import moment from 'moment';
 
 const MoviesNearMe = React.createClass({
 
@@ -62,7 +63,11 @@ const MoviesNearMe = React.createClass({
       });
   },
 
-  /*render() {
+  movieSelected(movie) {
+    Actions.movieDetailView({movie: movie})
+  },
+
+  render() {
     return (
       <View style={styles.container}>
         <View style={styles.bottomContainer}>
@@ -73,44 +78,16 @@ const MoviesNearMe = React.createClass({
           {
             this.state.movies.map((movie, index) => {
 
-              return (
-                <Card
-                  key={index} >
-                  <ListItem
-                    title={movie.title}
-                    avatar={{uri: movie.poster}} />
-                  <Text>{movie.shortDescription}</Text>
-                </Card>
-              );
-            })
-          }
-          </ScrollView>
-        </View>
-      </View>
-    );
-  } */
-
-
-
-    render() {
-    return (
-      <View style={styles.container}>
-        <View style={styles.bottomContainer}>
-          <View style={styles.headerContainer}>
-            <Text style={styles.header}>In Theaters</Text>
-          </View>
-          <ScrollView>
-          {
-            this.state.movies.map((movie, index) => {
+              const releaseDate = moment(movie.releaseDate).format('MMMM D');
 
               return (
                 <Card key={index}>
-                  <CardItem button onPress={() => console.log("CARD SELECTED")}>
+                  <CardItem button onPress={() => this.movieSelected(movie)}>
                     <Thumbnail source={{uri: movie.poster}} />
                     <Text>{movie.title}</Text>
-                    <Text note>RELEASE DATE</Text>
+                    <Text note>{releaseDate}</Text>
                   </CardItem>
-                  <CardItem cardBody button onPress={() => console.log("CARD SELECTED")}>
+                  <CardItem cardBody button onPress={() => this.movieSelected(movie)}>
                     <Text>{movie.shortDescription}</Text>
                   </CardItem>
                </Card>

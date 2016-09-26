@@ -4,13 +4,29 @@ import {
   Text,
   View
 } from 'react-native';
+import {Card, CardItem, Thumbnail } from 'native-base';
+import moment from 'moment';
 
 const MovieDetailView = React.createClass({
 
   render() {
     return (
       <View style={styles.container}>
-        <Text>MovieDetailView</Text>
+        <Card>
+          {
+            this.props.movie.showtimes.map((showing, index) => {
+
+              let showtime = moment(showing.dateTime).format("MMMM Do - h:mm a");
+
+              return (
+                <CardItem key={index}>
+                  <Text>{showing.theatre.name}</Text>
+                  <Text>{showtime}</Text>
+                </CardItem>
+              )
+            })
+          }
+        </Card>
       </View>
     );
   }
@@ -18,7 +34,8 @@ const MovieDetailView = React.createClass({
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1
+    flex: 1,
+    marginTop: 65
   }
 });
 
